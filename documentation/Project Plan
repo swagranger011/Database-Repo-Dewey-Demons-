@@ -1,0 +1,84 @@
+Vision Statement: 
+	We are developing the library database product that is intended to streamline library operations, provide an efficient, user-friendly, and scalable solution for managing library resources. Our goal is to create a system that simplifies book tracking, member management, and borrowing transactions while allowing librarians to generate reports. This will enhance the overall library experience for staff and readers.
+
+Scope Statement: 
+	Database Design: Developing a database to store and manage data entities such as books, authors, members, borrowing transactions, and library staff.
+	User Interface: Designing an interface for librarians to interact and manage the database, including features for adding, updating, and deleting records. Also, designing an interface for clients to search for books, reserve items, and check book status.
+	Query and Report Generation: Implementing functionality to generate reports and answer common queries, such as overdue books, popular titles, and member borrowing history.
+	Data Security: Ensuring secure access to the database with role-based permissions for librarians and staff.
+	Documentation: Providing comprehensive documentation for the database schema, user interface, and report generation tools.
+
+Team Organization and Profiles:
+    Team Name: Dewey Demons
+    Team Roles:
+        Tuan Vu - Team Administrator 
+        John Tran - Organizer 
+        Collins Gatimi - Quality Assurance  
+        Cody Duong - Database Designer
+        Kobe Jordan - Requirements Engineer
+        Abhishek Bhatt - GitHub Manager
+    Role Descriptions:
+        Team Administrator:
+            - Oversee the overall progress of the project and ensure all team members stay on task.
+            - Coordinate schedules, track deadlines, and manage resource allocation.
+            - Facilitate communication among team members and mediate any conflicts.
+            - Serve as the primary point of contact for any administrative issues or concerns.
+        Organizer:
+            - Organize and schedule team meetings, including preparing agendas.
+            - Document and maintain meeting logs, capturing key decisions and action items.
+            - Follow up on agreed-upon tasks to ensure accountability and timely completion.
+            - Communicate meeting outcomes and next steps.
+        Quality Assurance:
+            - Develop and implement testing strategies to ensure the product meets quality standards.
+            - Conduct regular reviews (code reviews, usability tests) and provide feedback for improvements.
+            - Oversee bug tracking, reporting, and resolution processes.
+            - Ensure compliance with any relevant standards or guidelines.
+        Database Designer:
+            - Design and maintain the database structure, ensuring scalability and efficiency.
+            - Collaborate with the development team to optimize queries and data storage.
+            - Implement data backup and recovery strategies to safeguard information.
+            - Monitor database performance and make necessary improvements or adjustments.
+        Requirements Engineer:
+            - Gather and analyze requirements from stakeholders, customers, or end-users.
+            - Document requirements clearly and maintain an up-to-date requirements specification.
+            - Work with the team to ensure requirements are understood and feasible.
+            - Validate that the final product meets the documented requirements.
+        GitHub Manager:
+            - Oversee the version control processes, ensuring best practices for branches and merges.
+            - Manage pull requests, code reviews, and coordinate with developers on repository standards.
+            - Ensure proper documentation is maintained in the repository (README).
+            - Monitor and manage repository permissions and integrations for the project.
+    Team Profiles:
+        Tuan Vu:
+            - Contact Information: tuanvu@ku.edu
+            - Availability: MWF (all day) + Saturday and Sunday (tentatively)
+            - Computing Platform Experience: Windows (x86), Linux (x86)
+            - Programming Languages: Python, Typescript, C#
+        John Tran:
+            - Contact Information: j130t187@ku.edu
+            - Availability: MWF (11a - 4p) + Saturday and Sunday (if scheduled)
+            - Computing Platform Experience: Windows (x86), macOS 
+            - Programming Languages: Python, Typescript, JavaScript
+        Collins Gatimi:
+            - Contact Information: cwgatimi@ku.edu
+            - Availability: Mon, Wed, Friday: (4:00 pm- 10:00 pm). Tue, Thur: (5:00 pm- 10:00 pm). Saturday: (all day)
+            - Computing Platform Experience: macOS, Linux (Ubuntu)
+            - Programming Languages: C/C++, JavaScript, Python
+        Cody Duong:
+            - Contact Information: cody.duong@ku.edu
+            - Availability: 2:00pm-10:00pm weekdays, all day Friday, Saturday/Sunday (scheduled)
+            - Computing Platform Experience: Windows (x86)/Linux (x86)
+            - Programming Languages: Typescript, Rust, Python
+        Kobe Jordan:
+            - Contact Information: kobe.jordan@ku.edu
+            - Availability: Monday (8a-11a) (3p-7p), Tuesday (5:30p-10p), Wednesday (8a-11a) (3p-7p), Thursday (5:30p-10p), Friday (8a-11a) (3p-7p), Saturday (8a-11a) (3p-11p)
+            - Computing Platform Experience: Windows (x86), macOS
+            - Programming Languages: C/C++, JavaScript, HTML, CSS, Python
+        Abhishek Bhatt:
+            - Contact Information: a770g598@ku.edu
+            - Availability: Monday (3:30p-10:30p), Tuesday (9a-11a), Wednesday (11a-12p), Thursday (9a-11a), Friday (12p-10:30p), Saturday (all-day)
+            - Computing Platform Experience: Windows (x86), Ubuntu Linux (x86)
+            - Programming Languages: C/C++, JavaScript, React.js, HTML, CSS, Python, Java
+
+GitHub Repository Management: The GitHub Repo will be managed by our GitHub Manager, Abhishek Bhatt. This is be found at: https://github.com/swagranger011/Database-Repo-Dewey-Demons-
+
