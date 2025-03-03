@@ -1,6 +1,10 @@
 Introduction:
     Our library database system is designed to streamline library operations, providing a unified platform for managing resources such as books, authors, borrowing transactions, and member accounts while supporting efficient recordkeeping. The system automates tasks like adding, updating, and tracking materials and offers easy access to generate reports such as overdue notices and lists of popular titles. This aims to enhance the experience for both library staff and members
     The scope of this project includes creating a robust database schema to manage core entities such as books, authors, members, borrowing transactions, and library staff. We will develop two primary user interfaces, one for librarians to handle record maintenance and member accounts, and another for customers to search for and reserve materials. We will also enable standard queries and report generation, including overdue items, borrowing histories, and popular titles. Guaranteeing data security is vital, which we will achieve through role-based permissions and secure access protocols. Also providing comprehensive documentation that outlines the database schema, user interfaces, and reporting capabilities.
+    
+    Glossary 
+    - ENUM: A field type that restricts data to one of several predefined values.
+    - ISBN: International Standard Book Number, a unique numerical book identifier.
 
 Stakeholders:
 1. End-Users:
