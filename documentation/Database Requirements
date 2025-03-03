@@ -1,0 +1,123 @@
+Introduction:
+    Our library database system is designed to streamline library operations, providing a unified platform for managing resources such as books, authors, borrowing transactions, and member accounts while supporting efficient recordkeeping. The system automates tasks like adding, updating, and tracking materials and offers easy access to generate reports such as overdue notices and lists of popular titles. This aims to enhance the experience for both library staff and members
+    The scope of this project includes creating a robust database schema to manage core entities such as books, authors, members, borrowing transactions, and library staff. We will develop two primary user interfaces, one for librarians to handle record maintenance and member accounts, and another for customers to search for and reserve materials. We will also enable standard queries and report generation, including overdue items, borrowing histories, and popular titles. Guaranteeing data security is vital, which we will achieve through role-based permissions and secure access protocols. Also providing comprehensive documentation that outlines the database schema, user interfaces, and reporting capabilities.
+
+Stakeholders:
+1. End-Users:
+    Librarians and Library Staff:
+        Role: Perform daily operations (cataloging books, processing check-ins/check-outs, managing member accounts, generating reports).
+        Interests: User-friendly interface, efficient workflows, real-time updates, and accurate tracking of resources.
+    Library Members/Patrons:
+        Role: Borrow materials, reserve items, access digital catalogs, and manage personal accounts (e.g., renewals, fines).
+        Interests: Intuitive self-service portal, mobile compatibility, timely notifications (e.g., due dates), and seamless search functionality.
+2. Administrators:
+    Library IT Administrators:
+        Role: Configure system settings, manage user permissions, ensure data security, and perform backups/updates.
+        Interests: Scalability, robust security protocols (e.g., GDPR compliance), and integration with existing infrastructure.
+    Senior Library Management:
+        Role: Oversee operations, analyze resource usage, and make strategic decisions.
+        Interests: Advanced reporting tools (e.g., circulation statistics, financial summaries) and trend analysis for budgeting.
+3. Technical Support Teams:
+    Internal/External IT Support:
+        Role: Troubleshoot technical issues, maintain system health, and ensure uptime.
+        Interests: Detailed error logs, remote access capabilities, and clear documentation.
+
+Requirements:
+    Functional Requirements:
+        User Administration:
+            - Register new clients and assign unique IDs.
+            - Manage client information (name, contact details, membership type, and account status).
+            - Handle multiple membership categories (regular, students, senior citizens).
+            - Restrict certain functionalities based on user roles (staff vs. clients).
+            - Register new staff members and assign unique Staff IDs.
+            - Manage staff information (first name, last name, DOB, work phone number, work email).
+            - Assign and manage roles and permissions for staff to access different levels of the system functionality.
+            - Restrict certain functionalities based on user roles (staff vs. clients). Staff can have administrative access to manage inventory, user accounts, and system settings, whereas clients have limited access, primarily to browse and reserve items.
+        Data Entry and Management:
+            - Add, update, and delete books, digital media, and magazines.
+            - Maintain details such as title, author/creator, ISBN, publication year, genre, and availability status.
+            - Keep track of magazine issues with issue numbers and publication dates.
+            - Update availability status when items are borrowed or returned.
+            - Manage staff schedules and assignments within the system (optional).
+        Borrowing and Returning Transactions:
+            - Allow clients to check out items based on membership type and borrowing limits.
+            - Log each transaction with timestamps and responsible clients.
+            - Enforce borrowing constraints (limit the number of items borrowed).
+            - Track due dates and calculate overdue fines.
+            - Restrict borrowing of specific items (rare books or latest magazines).
+        Reservations and Notifications:
+            - Allow clients to reserve books that are currently on loan.
+            - Notify clients of upcoming due dates and overdue items.
+            - Alert clients when reserved items become available.
+            - Send notifications to staff for inventory updates or when intervention is required
+        Report Generation:
+            - Fine Calculation Report – Calculates total fines owed by each member based  overdue items.
+            - Book Availability Report – Lists all available books within a specific genre.
+            - Overdue Items Report – Lists all overdue items and corresponding clients.
+            - Client Activity Report – Summarizes borrowing history, outstanding fees, an reserved items.
+            - Monthly Summary Report – Shows total loans, collected fines, and most borrowed items.
+            - Staff Activity Report – Tracks staff interventions, such as transactions handled or issues resolved (optional).
+        Data Entities:
+        1. Books
+            - Book_ID (Primary Key, INT) (0 < n < 1000000000)
+            - Title (VARCHAR)
+            - Author (VARCHAR)
+            - ISBN (INT, Unique) (0 < n < 10000000000000)
+            - Publication_Year (INT)
+            - Genre (VARCHAR)
+            - Availability_Status (ENUM: ‘Available’, ‘Checked Out’, ‘Reserved’)
+        2. Digital Media
+            - Media_ID (Primary Key, INT) (0 < n < 1000000000)
+            - Title (VARCHAR)
+            - Creator (VARCHAR)
+            - Format (ENUM: ‘eBook’, ‘Audiobook’, ‘DVD’, etc.)
+            - Publication_Year (INT)
+            - Genre (VARCHAR)
+            - Availability_Status (ENUM: ‘Available’, ‘Checked Out’, ‘Reserved’)
+        3. Magazines
+            - Magazine_ID (Primary Key, INT) (0 < n < 1000000000)
+            - Title (VARCHAR)
+            - Issue_Number (INT)
+            - Publication_Date (DATE)
+            - Availability_Status (ENUM: ‘Available’, ‘Checked Out’, ‘Reserved’)
+        4. Clients
+            - Client_ID (Primary Key, INT) (0 < n < 1000000000)
+            - Name (VARCHAR)
+            - Contact_Info (VARCHAR)
+            - Membership_Type (ENUM: ‘Regular’, ‘Student’, ‘Senior Citizen’)
+            - Account_Status (ENUM: ‘Active’, ‘Suspended’)
+        5. Membership Types
+            - Membership_Type (Primary Key, ENUM: ‘Regular’, ‘Student’, ‘Senior Citizen’)
+            - Borrowing_Limit (INT)
+            - Late_Fee_Rate (DECIMAL)
+        6. Borrowing Transactions
+            - Transaction_ID (Primary Key, INT) (0 < n < 1000000000)
+            - Client_ID (Foreign Key referencing Clients)
+            - Item_ID (Foreign Key referencing Books, Digital Media, or Magazines)
+            - Borrow_Date (DATE)
+            - Due_Date (DATE)
+            - Return_Date (DATE)
+            - Fine_Amount (DECIMAL) (0 < n < inf)
+        7. Reservations
+            - Reservation_ID (Primary Key, INT) (0 < n < 1000000000)
+            - Client_ID (Foreign Key referencing Clients)
+            - Item_ID (Foreign Key referencing Books, Digital Media, or Magazines)
+            - Reservation_Date (DATE)
+            - Status (ENUM: ‘Active’, ‘Fulfilled’, ‘Cancelled’)
+        8. Notifications
+            - Notification_ID (Primary Key, INT) (0 < n < 1000000000)
+            - Client_ID (Foreign Key referencing Clients)
+            - Message (TEXT)
+            - Sent_Date (DATE)
+        9. Staff
+            - Staff_ID (Primary Key, INT) (0 < n < 1000000000)
+            - Name (VARCHAR)
+            - DOB (DATE)
+            - Work_Phone_Number (VARCHAR)
+            - Work_Email (VARCHAR)
+
+Hardware Requirements:
+    The database system is designed for containerized deployment using Docker, ensuring broad compatibility across diverse hardware platforms. This approach abstracts the underlying operating system, allowing for consistent performance on systems supporting the Docker Engine. While Docker's core requirements are minimal, practical deployment necessitates adequate resources for the database application itself. Minimum hardware specifications include a general-purpose CPU with at least two cores to handle database operations, 4GB of RAM to accommodate Docker Desktop overhead and database processes, and 20GB of persistent storage for the database files and Docker container images. The 4GB of ram accounts for Docker Desktop's general recommendations, especially when running on Windows or macOS, where it relies on a virtual machine. Resource utilization will scale with database size and query complexity, thus these are minimum recommended values. The platform-agnostic nature of Docker ensures deployment flexibility across various architectures, including x86-64 and ARM, provided the host system supports the Docker runtime.
+
+Software Requirements:
+    The software environment requires Docker Engine and Docker Compose for container orchestration and deployment. The database system will utilize PostgreSQL as the relational database management system, deployed within a Docker container. Development will leverage Python with uv for dependency and virtual environment management. The web API will be built using FastAPI, SQLModel, and Pydantic. FastAPI will be used to create the API endpoints, while SQLModel will be used to define the database models and Pydantic will be used for data validation. Pydantic's data validation capabilities will ensure that data entering and leaving the API is in the expected format, improving reliability. SQLModel, built upon Pydantic and SQLAlchemy, simplifies database model definition and management. FastAPI's automatic OpenAPI schema generation will provide comprehensive API documentation, enabling machine and human readability of the API's capabilities. OpenAPI is a specification for building and documenting RESTful APIs, allowing for automatic documentation, client generation, and test suite generation. Build and deployment will solely rely on Docker and Docker Compose, ensuring a consistent and portable deployment process.
