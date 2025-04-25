@@ -1,0 +1,18 @@
+[project]
+name = "database-repo-dewey-demons"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.15.2",
+    "dotenv>=0.9.9",
+    "psycopg2-binary>=2.9.10",
+    "sqlmodel>=0.0.24",
+]
+
+[dependency-groups]
+dev = [
+    "psycopg2>=2.9.10",
+    "ruff>=0.11.7",
+]
