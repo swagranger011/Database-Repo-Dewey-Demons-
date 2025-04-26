@@ -1,18 +1,19 @@
 """Creates clients table (and membership_types since we have membership_type FK)
 
 Revision ID: f1940bf435be
-Revises: 
+Revises:
 Create Date: 2025-04-25 17:18:20.169011
 
 """
+
 from typing import Sequence, Union
 
 from alembic import op
-import sqlalchemy as sa # type: ignore # noqa: F401
+import sqlalchemy as sa  # type: ignore # noqa: F401
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'f1940bf435be'
+revision: str = "f1940bf435be"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None

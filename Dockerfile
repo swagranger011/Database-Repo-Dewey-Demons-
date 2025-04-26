@@ -2,6 +2,11 @@ FROM python:3.12-slim-bookworm
 
 WORKDIR /app
 
+# Postgres deps
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libpq5 && \
+    rm -rf /var/lib/apt/lists/*
+
 # Install uv
 RUN pip install uv
 
@@ -9,7 +14,7 @@ RUN pip install uv
 COPY . .
 
 # Create necessary
-RUN uv sync
+RUN uv sync --no-dev
 
 # Set the entrypoint to run your main script using uv
-ENTRYPOINT ["uv", "run", "./main.py"]
+ENTRYPOINT ["uv", "run", "--no-dev", "./main.py"]

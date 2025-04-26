@@ -1,18 +1,19 @@
 from dotenv import load_dotenv
 from src.migrations import run_migrations
-from sqlalchemy import create_engine
-
 load_dotenv()
 
+from src.seed import seed_database # noqa: E402
+
+
 def main():
-    print("Hello from database-repo-dewey-demons!")
+    print("Running migrations")
+    run_migrations()
+    print("Migrations complete")
+
+    print("Seeding database")
+    seed_database()
+    print("Seeding complete")
 
 
 if __name__ == "__main__":
     main()
-    run_migrations()
-
-    # engine = create_engine("postgresql://username:password@localhost:6001/eecs582")
-    # conn = engine.connect()
-    # print("Connection successful!")
-    # conn.close()

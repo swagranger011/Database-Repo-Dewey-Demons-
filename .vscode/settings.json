@@ -1,0 +1,6 @@
+{
+    "python.defaultInterpreterPath": "./.venv/Scripts/python.exe",
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true
+}

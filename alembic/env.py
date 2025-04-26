@@ -5,40 +5,42 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 import os
 
 # load .env
-load_dotenv()
+# load_dotenv()
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
-username = os.environ.get("POSTGRES_USER")
-password = os.environ.get("POSTGRES_PASSWORD")
-in_docker = os.environ.get("DOCKER")
+# username = os.environ.get("POSTGRES_USER")
+# password = os.environ.get("POSTGRES_PASSWORD")
+# in_docker = os.environ.get("DOCKER")
 
-if not username:
-    raise ValueError(
-        "POSTGRES_USER environment variable not set.",
-        "Please ensure you have a .env file with POSTGRES_USER defined."
-    )
+# if not username:
+#     raise ValueError(
+#         "POSTGRES_USER environment variable not set.",
+#         "Please ensure you have a .env file with POSTGRES_USER defined.",
+#     )
 
-if not password:
-    raise ValueError(
-        "POSTGRES_PASSWORD environment variable not set.",
-        "Please ensure you have a .env file with POSTGRES_PASSWORD defined."
-    )
+# if not password:
+#     raise ValueError(
+#         "POSTGRES_PASSWORD environment variable not set.",
+#         "Please ensure you have a .env file with POSTGRES_PASSWORD defined.",
+#     )
 
-url = f"postgresql+psycopg2://{username}:{password}@localhost:6001/eecs582"
+# url = f"postgresql+psycopg2://{username}:{password}@localhost:6001/eecs582"
 
-if in_docker:
-    url = f"postgresql+psycopg2://{username}:{password}@db:5432/eecs582"
+# if in_docker:
+#     url = f"postgresql+psycopg2://{username}:{password}@db:5432/eecs582"
+
+url = "postgresql+psycopg2://username:password@db:5432/eecs582"
 
 # setup database using .env
-config.set_main_option('sqlalchemy.url', url)
+config.set_main_option("sqlalchemy.url", url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -95,9 +97,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

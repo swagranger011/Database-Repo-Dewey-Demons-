@@ -12,6 +12,8 @@ postgres installs will start a service at 5432 which always runs to host a db)
 docker-compose -f ./docker-compose.yml up --build
 ```
 
+This will both run migrations (ie. create logical relations) and seed data.
+
 ## Development Requirements
 
 Only needed if developing or working on the databases.
@@ -34,6 +36,21 @@ install
 - [postgresql](https://www.postgresql.org/)
   - [pgadmin](https://www.pgadmin.org/), prompted as an additional
     tool you can install when installing postgres, useful for viewing and connecting to a postgres database.
+
+**Installing python deps**
+```sh
+uv sync
+```
+* You then can use this virtual environment in your IDE/code editor
+  * in vscode
+    1. Open command palette `CTRL`+`SHIFT`+`P`
+    2. Type `Python: Select Interpreter`
+    3. Input the `.venv` path, typically at `.venv/Scripts/python.exe`
+
+**Generating a new migration**
+```sh
+uvx alembic revision -m "i am adding tables and shi"
+```
 
 ## Other Notes
 
