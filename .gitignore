@@ -3,9 +3,10 @@
 .DS_Store
 
 .venv
-*.egg-info
+**\*.egg-info
 build
 *.env*
 !.env-SAMPLE
 *.sql
 !init-db.sql
+**\__pycache__
