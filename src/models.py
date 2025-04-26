@@ -52,7 +52,9 @@ class Clients(SQLModel, table=True):
     name: str
     contact_info: str
     account_status: AccountStatusEnum
-    membership_type: MembershipTypeEnum = Field(foreign_key="membership_types.membership_type")
+    membership_type: MembershipTypeEnum = Field(
+        foreign_key="membership_types.membership_type"
+    )
 
     membership_type_rel: MembershipTypes = Relationship(back_populates="clients")
     staff: Optional["Staff"] = Relationship(back_populates="client")

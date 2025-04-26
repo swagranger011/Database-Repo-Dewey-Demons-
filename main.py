@@ -1,8 +1,9 @@
 from dotenv import load_dotenv
 from src.migrations import run_migrations
+
 load_dotenv()
 
-from src.seed import seed_database # noqa: E402
+from src.seed import seed_database  # noqa: E402
 
 
 def main():

@@ -4,15 +4,21 @@
 
 Strictly speaking, the only thing required to run this project is [docker](https://www.docker.com/).
 
-Note the database runs at `localhost:6001`
-This is different from the default `localhost:5432` to avoid conflicting with existing database (the default
-postgres installs will start a service at 5432 which always runs to host a db)
+You'll need to fill out the `.env`
+```sh
+cp .env-SAMPLE .env
+vim .env # or use your preferred code editor
+```
 
+This will start the database, run migrations (ie. create logical relations), and seed some starting data.
 ```sh
 docker-compose -f ./docker-compose.yml up --build
 ```
 
-This will both run migrations (ie. create logical relations) and seed data.
+You can connect manually with (assuming you have postgresql tooling installed)
+```sh
+psql -U username -p 6001
+```
 
 ## Development Requirements
 
@@ -36,6 +42,14 @@ install
 - [postgresql](https://www.postgresql.org/)
   - [pgadmin](https://www.pgadmin.org/), prompted as an additional
     tool you can install when installing postgres, useful for viewing and connecting to a postgres database.
+
+## Getting started
+
+You'll need to fill out the `.env`
+```sh
+cp .env-SAMPLE .env
+vim .env # or use your preferred code editor
+```
 
 **Installing python deps**
 ```sh
