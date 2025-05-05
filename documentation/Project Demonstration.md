@@ -1,26 +1,80 @@
-**Queries**
+### Queries
+
+#### 1. List all books given author (Jane Smith)
+
+**Goal**: Display all books in the library collection written by a particular author
 
 ```sql
--- List all books given author (Jane Smith)
 SELECT *
 FROM books As b
 JOIN library_material As lm
 	ON b.material_id = lm.material_id
 WHERE b.author='Jane Smith';
+```
 
--- Find books by publication year given publication year (2020)
+**Output**:
+
+```sql
+ book_id | material_id |   author   |     isbn      | material_id |       title        | publication_year |  genre  | availability_status | type
+---------+-------------+------------+---------------+-------------+--------------------+------------------+---------+---------------------+------
+       2 |           2 | Jane Smith | 9789876543210 |           2 | History of Rome    |             2015 | History | Checked Out         | Book
+       5 |          13 | Jane Smith | 9781234567890 |          13 | Adventures of Ruby |             2022 | Fiction | Available           | Book
+(2 rows)
+
+```
+
+---
+
+#### 2. Find books by publication year given publication year (2020)
+
+**Goal**: Retrieve a list of books published in a specific year
+
+```sql
 SELECT *
 FROM books AS b
 JOIN library_material AS lm
     ON b.material_id = lm.material_id
 WHERE lm.publication_year = 2020;
+```
 
--- Check membership status given client id(client_id = 1)
+**Output**:
+
+```sql
+ book_id | material_id |   author    |     isbn      | material_id |       title        | publication_year |   genre    | availability_status | type
+---------+-------------+-------------+---------------+-------------+--------------------+------------------+------------+---------------------+------
+       1 |           1 | John Doe    | 9780123456789 |           1 | The Great Novel    |             2020 | Fiction    | Available           | Book
+       6 |          14 | Test Author | 9781111111111 |          14 | The Art of Testing |             2020 | Technology | Available           | Book
+(2 rows)
+```
+
+---
+
+#### 3. Check membership status given client id (client_id = 1)
+
+**Goal**: Display the current status and account information for a specific client based on their unique ID
+
+```sql
 SELECT *
 FROM clients
 WHERE client_id = 1;
+```
 
--- Fine calculation
+**Output**:
+
+```sql
+ client_id |    name     |      contact_info       | membership_type | account_status
+-----------+-------------+-------------------------+-----------------+----------------
+         1 | Alice Smith | alice.smith@example.com | Regular         | Active
+(1 row)
+```
+
+---
+
+#### 4. Fine calculation
+
+**Goal**: Calculate the total fines owed by each member, considering overdue books and a daily fine rate
+
+```sql
 SELECT
     c.client_id,
     c.name,
@@ -41,126 +95,37 @@ GROUP BY
     c.name
 ORDER BY
     total_fines DESC;
+```
 
--- Book availability given a genre (genre = Fiction)
+**Output**:
+
+```sql
+ client_id |      name      | total_fines
+-----------+----------------+-------------
+         2 | Bob Johnson    |        50.3
+         1 | Alice Smith    |        4.00
+         5 | Eve Green      |         2.0
+         4 | David Brown    |        0.00
+         3 | Carol Williams |         0.0
+(5 rows)
+```
+
+---
+
+#### 5. Book availability given a genre (genre = Fiction)
+
+**Goal**: Display a list of all available books (not currently borrowed) within a specific genre
+
+```sql
 SELECT *
 FROM books AS b
 JOIN library_material AS lm
 ON b.material_id = lm.material_id
 WHERE lm.genre = 'Fiction'
 AND lm.availability_status = 'Available';
-
--- Frequent borrowers of a specific genre (genre = Mystery)
-WITH genre_counts AS (
-    SELECT
-        bt.client_id,
-        COUNT(*) AS borrow_count
-    FROM borrowing_transactions bt
-    JOIN library_material lm
-        ON bt.material_id = lm.material_id
-    WHERE
-    -- Input genre below
-        lm.genre = 'History'
-        AND bt.borrow_date >= CURRENT_DATE - INTERVAL '1 year'
-    GROUP BY bt.client_id
-),
-
-max_count AS (
-    SELECT MAX(borrow_count) AS top_count
-    FROM genre_counts
-)
-
-SELECT
-    c.client_id,
-    c.name,
-    gc.borrow_count
-FROM genre_counts gc
-JOIN max_count mc
-    ON gc.borrow_count = mc.top_count
-JOIN clients c
-    ON gc.client_id = c.client_id
-ORDER BY c.name;
-
--- Books due soon (within a week)
-SELECT
-    bt.transaction_id,
-    c.client_id,
-    c.name          AS client_name,
-    c.contact_info,
-    lm.material_id,
-    lm.title        AS material_title,
-    bt.borrow_date,
-    bt.due_date
-FROM borrowing_transactions bt
-JOIN clients c
-    ON bt.client_id = c.client_id
-JOIN library_material lm
-    ON bt.material_id = lm.material_id
-WHERE
-    bt.return_date IS NULL
-    AND bt.due_date BETWEEN CURRENT_DATE AND CURRENT_DATE + INTERVAL '7 days'
-ORDER BY
-    bt.due_date ASC;
-
--- Members with overdue books
-SELECT
-    c.client_id,
-    c.name AS client_name,
-    string_agg(lm.title, ', ' ORDER BY bt.due_date) AS overdue_titles,
-    COUNT(*) AS num_overdues
-FROM borrowing_transactions bt
-JOIN clients c
-    ON bt.client_id = c.client_id
-JOIN library_material lm
-    ON bt.material_id = lm.material_id
-WHERE
-    bt.return_date IS NULL
-    AND bt.due_date < CURRENT_DATE
-GROUP BY
-    c.client_id,
-    c.name
-ORDER BY
-    c.name;
-
--- Average borrowing time for specific genre (for Fiction genre)
-SELECT
-    c.client_id,
-    c.name,
-    AVG((bt.return_date::date - bt.borrow_date::date)) AS average_borrow_days
-FROM borrowing_transactions bt
-JOIN library_material lm
-    ON bt.material_id = lm.material_id
-JOIN clients c
-    ON bt.client_id = c.client_id
-WHERE
-    lm.genre = 'Fiction'
-    AND bt.return_date IS NOT NULL
-GROUP BY
-    c.client_id,
-    c.name
-ORDER BY
-    average_borrow_days DESC;
-
--- Most popular author in the last month
-SELECT
-    b.author,
-    COUNT(*) AS borrow_count
-FROM borrowing_transactions bt
-JOIN books b
-    ON bt.material_id = b.material_id
-WHERE
-    bt.borrow_date >= CURRENT_DATE - INTERVAL '1 month'
-GROUP BY
-    b.author
-ORDER BY
-    borrow_count DESC
-LIMIT 1;
 ```
 
-**Reports**
+**Output**:
 
 ```sql
--- Collection analysis report
--- Member engagement report
--- Operational efficiency report
-```
+ book_id | material_id |   author   |     isbn      | material_id |       title        | publication_year

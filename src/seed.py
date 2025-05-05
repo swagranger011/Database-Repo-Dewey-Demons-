@@ -79,7 +79,9 @@ def seed_database(url: str = get_url()) -> None:
             VALUES 
                 (1, 'Alice Smith', 'alice.smith@example.com', 'Active', 'Regular'),
                 (2, 'Bob Johnson', 'bob.johnson@example.com', 'Active', 'Student'),
-                (3, 'Carol Williams', 'carol.williams@example.com', 'Suspended', 'Senior Citizen')
+                (3, 'Carol Williams', 'carol.williams@example.com', 'Suspended', 'Senior Citizen'),
+                (4, 'David Brown', 'david.brown@example.com', 'Active', 'Regular'),
+                (5, 'Eve Green', 'eve.green@example.com', 'Active', 'Student')
             ON CONFLICT (client_id) DO UPDATE SET
                 name = EXCLUDED.name,
                 contact_info = EXCLUDED.contact_info,
@@ -97,6 +99,18 @@ def seed_database(url: str = get_url()) -> None:
                 "dob": "1990-05-15",
                 "work_phone_number": "555-1234",
                 "work_email": "alice.smith@library.org",
+            },
+            {
+                "staff_id": 2,
+                "dob": "1985-11-30",
+                "work_phone_number": "555-5678",
+                "work_email": "bob.johnson@library.org",
+            },
+            {
+                "staff_id": 3,
+                "dob": "1992-07-20",
+                "work_phone_number": "555-8765",
+                "work_email": "carol.williams@library.org",
             }
         ]
         stmt = (
@@ -151,6 +165,63 @@ def seed_database(url: str = get_url()) -> None:
                 "availability_status": "Available",
                 "type": MaterialTypeEnum.Magazine.value,
             },
+            {
+                "material_id": 6,
+                "title": "Mystery at Manor",
+                "publication_year": 2018,
+                "genre": "Mystery",
+                "availability_status": "Available",
+                "type": MaterialTypeEnum.Book.value,
+            },
+            {
+                "material_id": 7,
+                "title": "Science Today",
+                "publication_year": 2025,
+                "genre": "Science",
+                "availability_status": "Available",
+                "type": MaterialTypeEnum.Magazine.value,
+            },
+            {
+                "material_id": 8,
+                "title": "Learning SQL",
+                "publication_year": 2021,
+                "genre": "Technology",
+                "availability_status": "Checked Out",
+                "type": MaterialTypeEnum.Book.value,
+            },
+            {
+                "material_id": 9,
+                "title": "Nature Documentary",
+                "publication_year": 2020,
+                "genre": "Documentary",
+                "availability_status": "Available",
+                "type": MaterialTypeEnum.Digital_Media.value,
+            },
+            {
+                "material_id": 10,
+                "title": "Health & Wellness",
+                "publication_year": 2023,
+                "genre": "Health",
+                "availability_status": "Available",
+                "type": MaterialTypeEnum.Magazine.value,
+            },
+            {
+                "material_id": 13,
+                "title": "Adventures of Ruby",
+                "publication_year": 2022,
+                "genre": "Fiction",
+                "availability_status": "Available",
+                "type": MaterialTypeEnum.Book.value,
+            },
+            {
+                "material_id": 14,
+                "title": "The Art of Testing",
+                "publication_year": 2020,
+                "genre": "Technology",
+                "availability_status": "Available",
+                "type": MaterialTypeEnum.Book.value,
+            },
+
         ]
         stmt = (
             pg_insert(LibraryMaterial)
@@ -175,6 +246,30 @@ def seed_database(url: str = get_url()) -> None:
                 "material_id": 2,
                 "author": "Jane Smith",
                 "isbn": 9789876543210,
+            },
+            {
+                "book_id": 3,
+                "material_id": 6,
+                "author": "Agatha Christie",
+                "isbn": 9780307588371,
+            },
+            {
+                "book_id": 4,
+                "material_id": 8,
+                "author": "Daniele Moschella",
+                "isbn": 9781492097611,
+            },
+            {
+                "book_id": 5,
+                "material_id": 13,
+                "author": "Jane Smith",
+                "isbn": 9781234567890,
+            },
+            {
+                "book_id": 6,
+                "material_id": 14,
+                "author": "Test Author",
+                "isbn": 9781111111111,
             },
         ]
         stmt = (
@@ -201,119 +296,14 @@ def seed_database(url: str = get_url()) -> None:
                 "creator": "Director X",
                 "format": DigitalMediaFormatEnum.DVD.value,
             },
+            {
+                "media_id": 3,
+                "material_id": 9,
+                "creator": "NAT Geo",
+                "format": DigitalMediaFormatEnum.DVD.value,
+            },
         ]
         stmt = (
             pg_insert(DigitalMedia)
             .values(digital_media)
-            .on_conflict_do_update(
-                index_elements=["media_id"],
-                set_={k: getattr(DigitalMedia, k) for k in digital_media[0].keys()},
-            )
-        )
-        session.execute(stmt)
-
-        # Bulk insert Magazines
-        magazines = [
-            {
-                "magazine_id": 1,
-                "material_id": 5,
-                "issue_number": "Vol. 1",
-                "publish_date": date(2024, 1, 15),
-            }
-        ]
-        stmt = (
-            pg_insert(Magazines)
-            .values(magazines)
-            .on_conflict_do_update(
-                index_elements=["magazine_id"],
-                set_={k: getattr(Magazines, k) for k in magazines[0].keys()},
-            )
-        )
-        session.execute(stmt)
-
-        # Bulk insert BorrowingTransactions
-        transactions = [
-            {
-                "transaction_id": 1,
-                "client_id": 1,
-                "material_id": 1,
-                "borrow_date": date(2024, 1, 1),
-                "due_date": date(2024, 1, 15),
-                "return_date": date(2024, 1, 10),
-                "fine_amount": 0.0,
-            },
-            {
-                "transaction_id": 2,
-                "client_id": 2,
-                "material_id": 2,
-                "borrow_date": date(2024, 1, 5),
-                "due_date": date(2024, 1, 20),
-                "return_date": None,
-                "fine_amount": 0.0,
-            },
-        ]
-        stmt = (
-            pg_insert(BorrowingTransactions)
-            .values(transactions)
-            .on_conflict_do_update(
-                index_elements=["transaction_id"],
-                set_={
-                    k: getattr(BorrowingTransactions, k) for k in transactions[0].keys()
-                },
-            )
-        )
-        session.execute(stmt)
-
-        # Bulk insert Reservations
-        reservations = [
-            {
-                "reservation_id": 1,
-                "client_id": 1,
-                "material_id": 3,
-                "reservation_date": date(2024, 1, 10),
-                "status": ReservationStatusEnum.Active.value,
-            },
-            {
-                "reservation_id": 2,
-                "client_id": 3,
-                "material_id": 4,
-                "reservation_date": date(2024, 1, 12),
-                "status": ReservationStatusEnum.Fulfilled.value,
-            },
-        ]
-        stmt = (
-            pg_insert(Reservations)
-            .values(reservations)
-            .on_conflict_do_update(
-                index_elements=["reservation_id"],
-                set_={k: getattr(Reservations, k) for k in reservations[0].keys()},
-            )
-        )
-        session.execute(stmt)
-
-        # Bulk insert Notifications
-        notifications = [
-            {
-                "notification_id": 1,
-                "client_id": 2,
-                "message": "Your book is due soon!",
-                "sent_date": date(2024, 1, 18),
-            },
-            {
-                "notification_id": 2,
-                "client_id": 3,
-                "message": "Your reservation is ready.",
-                "sent_date": date(2024, 1, 15),
-            },
-        ]
-        stmt = (
-            pg_insert(Notifications)
-            .values(notifications)
-            .on_conflict_do_update(
-                index_elements=["notification_id"],
-                set_={k: getattr(Notifications, k) for k in notifications[0].keys()},
-            )
-        )
-        session.execute(stmt)
-
-        session.commit()
+ 

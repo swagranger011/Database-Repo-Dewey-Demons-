@@ -32,10 +32,10 @@ if not password:
         "Please ensure you have a .env file with POSTGRES_PASSWORD defined.",
     )
 
-url = f"postgresql+psycopg2://{username}:{password}@localhost:6001/eecs582"
+url = f"postgresql+psycopg2://{username}:{password}@localhost:6001/eecs447"
 
 if in_docker:
-    url = f"postgresql+psycopg2://{username}:{password}@db:5432/eecs582"
+    url = f"postgresql+psycopg2://{username}:{password}@db:5432/eecs447"
 
 # setup database using .env
 config.set_main_option("sqlalchemy.url", url)

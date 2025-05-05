@@ -19,6 +19,6 @@ def get_url() -> str:
         )
 
     if in_docker:
-        return f"postgresql+psycopg2://{username}:{password}@db:5432/eecs582"
+        return f"postgresql+psycopg2://{username}:{password}@db:5432/eecs447"
 
-    return f"postgresql+psycopg2://{username}:{password}@localhost:6001/eecs582"
+    return f"postgresql+psycopg2://{username}:{password}@localhost:6001/eecs447"
