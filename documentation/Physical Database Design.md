@@ -249,4 +249,61 @@ eecs447=# SELECT * from library_material;
            2 | History of Rome    |             2015 | History     | Checked Out         | Book
            3 | Digital Marketing  |             2022 | Business    | Available           | Digital Media
            4 | Sci-Fi Movie       |             2023 | Sci-Fi      | Available           | Digital Media
-           5 | Tech Today         |             2024 | Technology  | Avai
+           5 | Tech Today         |             2024 | Technology  | Available           | Magazine
+           6 | Mystery at Manor   |             2018 | Mystery     | Available           | Book
+           7 | Science Today      |             2025 | Science     | Available           | Magazine
+           8 | Learning SQL       |             2021 | Technology  | Checked Out         | Book
+           9 | Nature Documentary |             2020 | Documentary | Available           | Digital Media
+          10 | Health & Wellness  |             2023 | Health      | Available           | Magazine
+          13 | Adventures of Ruby |             2022 | Fiction     | Available           | Book
+          14 | The Art of Testing |             2020 | Technology  | Available           | Book
+(12 rows)
+
+
+eecs447=# SELECT * from magazines;
+ magazine_id | material_id | issue_number | publish_date
+-------------+-------------+--------------+--------------
+           1 |           5 | Vol. 1       | 2024-01-15
+           2 |           7 | Vol. 2       | 2025-02-01
+           3 |          10 | Vol. 5       | 2024-12-01
+(3 rows)
+
+
+eecs447=# SELECT * from membership_types;
+ membership_type | borrowing_limit | reserving_limit | late_fee_rate
+-----------------+-----------------+-----------------+---------------
+ Regular         |               5 |               3 |          0.25
+ Student         |               3 |               2 |           0.1
+ Senior Citizen  |               7 |               4 |           0.0
+(3 rows)
+
+
+eecs447=# SELECT * from notifications;
+ notification_id | client_id |                  message                  | sent_date
+-----------------+-----------+-------------------------------------------+------------
+               1 |         2 | Your book is due soon!                    | 2024-01-18
+               2 |         3 | Your reservation is ready.                | 2024-01-15
+               3 |         5 | Reminder: Your borrowed item is due soon! | 2025-04-30
+               4 |         4 | Your reservation is ready for pickup.     | 2025-04-26
+(4 rows)
+
+
+eecs447=# SELECT * from reservations;
+ reservation_id | client_id | material_id | reservation_date |  status
+----------------+-----------+-------------+------------------+-----------
+              1 |         1 |           3 | 2024-01-10       | Active
+              2 |         3 |           4 | 2024-01-12       | Fulfilled
+              3 |         2 |           6 | 2025-04-20       | Active
+              4 |         4 |          10 | 2025-04-25       | Active
+(4 rows)
+
+
+eecs447=# SELECT * from staff;
+ staff_id |    dob     | work_phone_number |         work_email
+----------+------------+-------------------+----------------------------
+        1 | 1990-05-15 | 555-1234          | alice.smith@library.org
+        2 | 1985-11-30 | 555-5678          | bob.johnson@library.org
+        3 | 1992-07-20 | 555-8765          | carol.williams@library.org
+(3 rows)
+
+```
